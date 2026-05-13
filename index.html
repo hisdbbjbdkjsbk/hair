@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMIÈRE | Luxury Hair Design</title>
+    
+    <!-- GSAP for High Animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --gold: #c5a059;
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --grey: #1a1a1a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, .logo {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* 1. Window Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .shutter {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            background: var(--grey);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .shutter.left { left: 0; border-right: 1px solid rgba(197, 160, 89, 0.3); }
+        .shutter.right { right: 0; }
+
+        .loader-text {
+            position: absolute;
+            z-index: 1001;
+            font-size: 2.5rem;
+            letter-spacing: 12px;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        /* 2. Floating Right Sidebar (Call/Appt) */
+        .side-actions {
+            position: fixed;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 99;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .action-link {
+            background: var(--gold);
+            color: var(--black);
+            text-decoration: none;
+            padding: 20px 12px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .action-link:hover {
+            background: var(--white);
+            transform: scale(1.1);
+        }
+
+        .action-link.call-btn {
+            writing-mode: horizontal-tb;
+            padding: 15px;
+            border-radius: 50%;
+        }
+
+        /* 3. Hero Section & Video */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        nav {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            padding: 30px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .logo { font-size: 1.8rem; color: var(--gold); font-weight: bold; }
+
+        nav ul { display: flex; list-style: none; gap: 30px; }
+        nav ul a { color: var(--white); text-decoration: none; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
+
+        .hero-content {
+            text-align: center;
+            z-index: 5;
+        }
+
+        .hero-content h2 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0;
+        }
+
+        /* 4. Sections */
+        section {
+            padding: 100px 10%;
+            min-height: 60vh;
+        }
+
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .price-item {
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* 5. Footer */
+        footer {
+            background: #000;
+            padding: 60px 10%;
+            text-align: center;
+            border-top: 1px solid var(--grey);
+        }
+
+        .footer-links a {
+            color: var(--gold);
+            margin: 0 15px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PRELOADER "WINDOW" -->
+    <div class="preloader">
+        <div class="shutter left"></div>
+        <div class="shutter right"></div>
+        <div class="loader-text">odeesa salon</div>
+    </div>
+
+    <!-- FLOATING ACTIONS -->
+    <div class="side-actions">
+        <a href="tel:+123456789" class="action-link call-btn">📞</a>
+        <a href="#appointment" class="action-link">MAKE APPOINTMENT</a>
+    </div>
+
+    <!-- MAIN PAGE -->
+    <header class="hero">
+        <video autoplay muted loop playsinline class="hero-video">
+            <!-- High quality hair styling video -->
+            <source src="3996964-uhd_4096_2160_25fps.mp4" type="video/mp4">
+        </video>
+
+        <nav>
+            <div class="logo">odessa salon</div>
+            <ul>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#prices">Prices</a></li>
+                <li><a href="#tea">Our Tea</a></li>
+                <li><a href="#designers">Designers</a></li>
+            </ul>
+        </nav>
+
+        <div class="hero-content">
+            <h2 id="hero-title">Elegance Redefined</h2>
+            <p id="hero-sub">The ultimate hair experience for the modern woman.</p>
+        </div>
+    </header>
+
+    <section id="about">
+        <h2>About Our Sanctuary</h2>
+        <p style="margin-top:20px; line-height: 1.8; color: #ccc;">We don't just cut hair; we sculpt confidence. Our salon is a haven of luxury where every detail is tailored to your unique beauty.</p>
+    </section>
+
+    <section id="prices" style="background: var(--grey);">
+        <h2>Investment in Beauty</h2>
+        <div class="price-grid">
+            <div class="price-item"><span>Couture Cut & Style</span> <span>$120</span></div>
+            <div class="price-item"><span>Signature Balayage</span> <span>$280</span></div>
+            <div class="price-item"><span>Hydration Therapy</span> <span>$85</span></div>
+            <div class="price-item"><span>Bridal Styling</span> <span>$200</span></div>
+        </div>
+    </section>
+
+    <section id="tea">
+        <h2>Our Tea Ritual</h2>
+        <p>While you wait, enjoy our selection of organic herbal teas served in fine porcelain. A moment of zen before your transformation.</p>
+    </section>
+
+    <section id="designers">
+        <h2>The Master Designers</h2>
+        <div class="price-grid">
+            <div style="text-align:center"><h3>Elena V.</h3><p>Master Colorist</p></div>
+            <div style="text-align:center"><h3>Sarah J.</h3><p>Creative Director</p></div>
+            <div style="text-align:center"><h3>Mila K.</h3><p>Styling Expert</p></div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="#">TikTok</a>
+        </div>
+        <p style="margin-top: 20px; font-size: 0.8rem; color: #666;">+1 (234) 567-890 • 123 Luxury Lane, NY</p>
+    </footer>
+
+    <script>
+        /* --- GSAP ANIMATION LOGIC --- */
+        window.addEventListener('load', () => {
+            const tl = gsap.timeline();
+
+            // 1. Initial State
+            tl.set(".loader-text", { opacity: 0, y: 20 });
+
+            // 2. Animate Logo In
+            tl.to(".loader-text", {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "power2.out"
+            });
+
+            // 3. Open the "Window" (Shutters)
+            tl.to(".loader-text", {
+                opacity: 0,
+                duration: 0.8,
+                delay: 0.5
+            })
+            .to(".left", {
+                xPercent: -100,
+                duration: 1.5,
+                ease: "power4.inOut"
+            }, "-=0.2")
+            .to(".right", {
+                xPercent: 100,
+                duration: 1.5,
+                ease: "power4.inOut"
+            }, "<") // Start at the same time as the left shutter
+
+            // 4. Reveal Hero Content
+            .from("#hero-title", {
+                y: 100,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power4.out"
+            }, "-=0.8")
+            .from("#hero-sub", {
+                y: 50,
+                opacity: 0,
+                duration: 1
+            }, "-=0.6")
+            .from(".side-actions", {
+                x: 100,
+                opacity: 0,
+                duration: 0.8
+            }, "-=0.5");
+
+            // Remove preloader from view so user can click items
+            tl.set(".preloader", { display: "none" });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
