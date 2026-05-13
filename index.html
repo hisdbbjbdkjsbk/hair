@@ -21,6 +21,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         body {
             background-color: var(--black);
@@ -29,7 +30,7 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; text-transform: uppercase; letter-spacing: 3px; }
 
         /* 1. Preloader */
         .preloader {
@@ -87,7 +88,38 @@
         .lang-btn { cursor: pointer; padding: 6px 14px; font-size: 0.7rem; color: var(--white); transition: 0.3s; text-transform: uppercase; }
         .lang-btn.active { background: var(--white); color: var(--black); font-weight: bold; }
 
-        /* 4. Modal Appointment Form */
+        /* 4. Hero Section */
+        .hero { height: 100vh; position: relative; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; opacity: 0.4; }
+        .hero-content { text-align: center; z-index: 5; }
+        .hero-content h2 { font-size: clamp(2.5rem, 8vw, 4rem); margin-bottom: 20px; }
+        .hero-content p { letter-spacing: 4px; color: var(--gold); text-transform: uppercase; font-size: 0.9rem; }
+
+        /* 5. ABOUT SECTION - Normal size, text aligned LEFT */
+        #about { 
+            padding: 120px 15%; 
+            background: var(--black); 
+            display: flex;
+            justify-content: flex-start;
+        }
+        .about-container { max-width: 800px; text-align: left; }
+        #about h2 { font-size: 2.5rem; margin-bottom: 30px; color: var(--gold); }
+        #about p { 
+            font-size: 1.1rem; 
+            line-height: 1.8; 
+            color: #bbb; 
+            font-weight: 300;
+        }
+
+        /* 6. Prices Section */
+        #prices { padding: 100px 15%; background-color: #0c0c0c; }
+        .prices-container { max-width: 1000px; margin: 0 auto; }
+        .price-category { margin-bottom: 60px; }
+        .price-category h3 { color: var(--gold); font-size: 1.3rem; margin-bottom: 30px; border-bottom: 1px solid rgba(197, 160, 89, 0.2); padding-bottom: 10px; }
+        .price-item { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; font-size: 1rem; border-bottom: 1px dashed #333; padding-bottom: 8px; }
+        .price-item span:last-child { color: var(--gold); font-weight: 700; margin-left: 10px; }
+
+        /* 7. Modal Form - Original Full Version */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--overlay-dark); z-index: 2000;
@@ -96,65 +128,27 @@
         }
         .modal-window {
             background: var(--grey); width: 95%; max-width: 500px; padding: 40px;
-            border: 1px solid var(--gold); position: relative; transform: translateY(50px); opacity: 0;
+            border: 1px solid var(--gold); position: relative;
         }
-        .close-modal {
-            position: absolute; top: 15px; right: 20px; color: var(--gold);
-            font-size: 2rem; cursor: pointer; line-height: 1;
-        }
-        .modal-window h3 { color: var(--gold); text-align: center; margin-bottom: 25px; font-size: 1.5rem; letter-spacing: 2px; text-transform: uppercase; }
-
+        .close-modal { position: absolute; top: 15px; right: 20px; color: var(--gold); font-size: 2rem; cursor: pointer; }
         .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-size: 0.65rem; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; letter-spacing: 1px; }
-        .form-group input {
-            width: 100%; background: #000; border: 1px solid #333; padding: 12px;
-            color: white; font-family: 'Montserrat'; outline: none; transition: 0.3s;
-        }
-        .form-group input:focus { border-color: var(--gold); }
-
-        .masters-list { display: flex; justify-content: space-between; gap: 10px; margin-top: 20px; }
+        .form-group label { display: block; font-size: 0.65rem; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; }
+        .form-group input { width: 100%; background: #000; border: 1px solid #333; padding: 12px; color: white; outline: none; }
+        
+        .masters-list { display: flex; justify-content: space-between; gap: 10px; margin-top: 15px; }
         .master-card { flex: 1; text-align: center; cursor: pointer; opacity: 0.4; transition: 0.3s; }
-        .master-card img { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 2px solid transparent; margin-bottom: 8px; }
-        .master-card p { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; }
+        .master-card img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid transparent; margin-bottom: 5px; }
+        .master-card p { font-size: 0.6rem; text-transform: uppercase; }
         .master-card.active { opacity: 1; }
         .master-card.active img { border-color: var(--gold); }
-
-        .submit-btn {
-            width: 100%; padding: 15px; background: var(--gold); color: black;
-            border: none; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;
-            margin-top: 25px; cursor: pointer; transition: 0.3s;
-        }
-        .submit-btn:hover { background: white; }
-
-        /* 5. Hero Section */
-        .hero { height: 100vh; position: relative; display: flex; justify-content: center; align-items: center; overflow: hidden; }
-        .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; opacity: 0.4; }
-        .hero-content { text-align: center; z-index: 5; }
-        .hero-content h2 { font-size: 4rem; margin-bottom: 20px; letter-spacing: 5px; text-transform: uppercase; }
-
-        /* 6. Sections */
-        section { padding: 100px 15%; }
-        .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-top: 50px; }
-        .price-item { border-bottom: 1px solid rgba(197, 160, 89, 0.3); padding-bottom: 12px; display: flex; justify-content: space-between; font-size: 0.9rem; }
-
-        /* 7. Footer & Socials */
-        footer { background: #000; padding: 80px 10%; text-align: center; border-top: 1px solid var(--grey); }
         
-        .social-links { display: flex; justify-content: center; gap: 40px; margin-bottom: 40px; }
-        .social-links a { 
-            color: var(--white); text-decoration: none; font-size: 0.8rem; 
-            text-transform: uppercase; letter-spacing: 3px; transition: 0.3s; 
-            position: relative; padding-bottom: 5px;
-        }
-        .social-links a::after {
-            content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: 0.3s;
-        }
-        .social-links a:hover { color: var(--gold); }
-        .social-links a:hover::after { width: 100%; }
+        .submit-btn { width: 100%; padding: 15px; background: var(--gold); color: black; border: none; font-weight: bold; text-transform: uppercase; cursor: pointer; margin-top: 25px; }
 
-        .footer-address { font-size: 0.75rem; color: #666; letter-spacing: 2px; text-transform: uppercase; line-height: 1.8; }
-        .footer-phone { display: block; margin-top: 15px; color: var(--gold); text-decoration: none; font-weight: bold; font-size: 1rem; }
-        .copyright { margin-top: 30px; font-size: 0.6rem; opacity: 0.4; letter-spacing: 1px; }
+        /* 8. Footer */
+        footer { background: #000; padding: 80px 10%; text-align: center; border-top: 1px solid var(--grey); }
+        .social-links { display: flex; justify-content: center; gap: 40px; margin-bottom: 40px; }
+        .social-links a { color: var(--white); text-decoration: none; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; }
+        .footer-address { font-size: 0.75rem; color: #666; letter-spacing: 2px; }
     </style>
 </head>
 <body>
@@ -170,37 +164,6 @@
     <div class="side-actions">
         <a href="tel:+4915155414585" class="action-link call-btn">📞</a>
         <button onclick="openAppointment()" class="action-link" data-key="appt_btn">ЗАПИСАТИСЯ</button>
-    </div>
-
-    <!-- APPOINTMENT MODAL -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-window" id="modalWindow">
-            <span class="close-modal" onclick="closeAppointment()">&times;</span>
-            <h3 data-key="modal_title">Онлайн Запис</h3>
-            
-            <form id="bookingForm">
-                <div class="form-group"><label data-key="f_name">Ваше Ім'я</label><input type="text" required></div>
-                <div class="form-group"><label data-key="f_phone">Номер Телефону</label><input type="tel" required placeholder="+380"></div>
-                <div style="display: flex; gap: 15px;">
-                    <div class="form-group" style="flex: 1;"><label data-key="f_date">Дата</label><input type="date" required></div>
-                    <div class="form-group" style="flex: 1;"><label data-key="f_time">Час</label><input type="time" required></div>
-                </div>
-
-                <label data-key="f_master" style="font-size: 0.65rem; color: var(--gold); text-transform: uppercase;">Оберіть Майстра</label>
-                <div class="masters-list">
-                    <div class="master-card active" onclick="selectMaster(this, 'Natalia')">
-                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop" alt="Natalia"><p>Natalia</p>
-                    </div>
-                    <div class="master-card" onclick="selectMaster(this, 'Larisa')">
-                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop" alt="Larisa"><p>Larisa</p>
-                    </div>
-                    <div class="master-card" onclick="selectMaster(this, 'Lena')">
-                        <img src="Untitled.png" alt="Lena"><p>Lena</p>
-                    </div>
-                </div>
-                <button type="submit" class="submit-btn" data-key="f_submit">Забронювати</button>
-            </form>
-        </div>
     </div>
 
     <!-- NAVIGATION -->
@@ -222,16 +185,72 @@
             <source src="3996964-uhd_4096_2160_25fps.mp4" type="video/mp4">
         </video>
         <div class="hero-content">
-            <h2 id="hero-title" data-key="hero_title">Ваша Елегантність</h2>
-            <p id="hero-sub" data-key="hero_sub">Винятковий догляд за волоссям для сучасної жінки.</p>
+            <h2 data-key="hero_title">Ваша Елегантність</h2>
+            <p data-key="hero_sub">Винятковий догляд за волоссям для сучасної жінки</p>
         </div>
     </header>
 
-    <!-- ABOUT & PRICES (Shortened for brevity) -->
+    <!-- ABOUT SECTION (Normal size, Left aligned) -->
     <section id="about">
-        <h2 data-key="about_title">Про наше святилище</h2>
-        <p data-key="about_text" style="margin-top:25px; line-height: 2; color: #bbb;">FIDJI STUDIO — це місце, де стиль поєднується з майстерністю.</p>
+        <div class="about-container">
+            <h2 data-key="about_title">Про наше святилище</h2>
+            <p data-key="about_text">
+                FIDJI STUDIO — це місце, де стиль поєднується з майстерністю. Ми створюємо образи, що підкреслюють вашу індивідуальність та додають впевненості у кожному русі. Наша філософія базується на використанні преміальних технік та персоналізованому підході до кожної гості.
+            </p>
+        </div>
     </section>
+
+    <!-- PRICES SECTION -->
+    <section id="prices">
+        <div class="prices-container">
+            <h2 style="text-align: center; color: var(--gold); margin-bottom: 60px;" data-key="nav_prices">Ціни</h2>
+            <div class="price-category">
+                <h3 data-key="cat_haircut">Стрижки</h3>
+                <div class="price-item"><span data-key="p_women">Жіноча стрижка</span> <span>від 800 ₴</span></div>
+                <div class="price-item"><span data-key="p_men">Чоловіча стрижка</span> <span>від 500 ₴</span></div>
+                <div class="price-item"><span data-key="p_styling">Укладка</span> <span>від 400 ₴</span></div>
+            </div>
+            <div class="price-category">
+                <h3 data-key="cat_color">Фарбування</h3>
+                <div class="price-item"><span data-key="p_color_one">В один тон</span> <span>від 1500 ₴</span></div>
+                <div class="price-item"><span data-key="p_complex">Складне фарбування</span> <span>від 3500 ₴</span></div>
+                <div class="price-item"><span data-key="p_toning">Тонування</span> <span>від 900 ₴</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- APPOINTMENT MODAL (Full version restored) -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-window" id="modalWindow">
+            <span class="close-modal" onclick="closeAppointment()">&times;</span>
+            <h3 data-key="modal_title" style="text-align:center; color:var(--gold); margin-bottom:25px;">Онлайн Запис</h3>
+            
+            <form id="bookingForm">
+                <div class="form-group"><label data-key="f_name">Ваше Ім'я</label><input type="text" required></div>
+                <div class="form-group"><label data-key="f_phone">Номер Телефону</label><input type="tel" required placeholder="+380"></div>
+                
+                <div style="display: flex; gap: 15px;">
+                    <div class="form-group" style="flex: 1;"><label data-key="f_date">Дата</label><input type="date" required></div>
+                    <div class="form-group" style="flex: 1;"><label data-key="f_time">Час</label><input type="time" required></div>
+                </div>
+
+                <label data-key="f_master" style="font-size: 0.65rem; color: var(--gold); text-transform: uppercase;">Оберіть Майстра</label>
+                <div class="masters-list">
+                    <div class="master-card active" onclick="selectMaster(this)">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop" alt="Natalia"><p>Natalia</p>
+                    </div>
+                    <div class="master-card" onclick="selectMaster(this)">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop" alt="Larisa"><p>Larisa</p>
+                    </div>
+                    <div class="master-card" onclick="selectMaster(this)">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop" alt="Lena"><p>Lena</p>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" data-key="f_submit">Забронювати</button>
+            </form>
+        </div>
+    </div>
 
     <!-- FOOTER -->
     <footer>
@@ -240,11 +259,10 @@
             <a href="https://tiktok.com" target="_blank">TikTok</a>
             <a href="https://www.facebook.com/beautyfidjistudio" target="_blank">Facebook</a>
         </div>
-
         <div class="footer-address">
-            <span data-key="address">вулиця Марсельська 58, Одеса, Україна</span>
-            <a href="tel:+4915155414585" class="footer-phone">+49 151 55414585</a>
-            <p class="copyright">© 2026 FIDJI STUDIO. ALL RIGHTS RESERVED.</p>
+            <p data-key="address">вулиця Марсельська 58, Одеса, Україна</p>
+            <p style="margin-top:10px; color:var(--gold); font-weight:bold;">+49 151 55414585</p>
+            <p style="margin-top: 30px; font-size: 0.6rem; opacity: 0.4;">© 2026 FIDJI STUDIO. ALL RIGHTS RESERVED.</p>
         </div>
     </footer>
 
@@ -252,18 +270,16 @@
         function openAppointment() {
             const overlay = document.getElementById('modalOverlay');
             overlay.style.display = 'flex';
+            gsap.fromTo("#modalWindow", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.5 });
             gsap.to(overlay, { opacity: 1, duration: 0.4 });
-            gsap.to(document.getElementById('modalWindow'), { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" });
         }
-
         function closeAppointment() {
-            gsap.to(document.getElementById('modalWindow'), { opacity: 0, y: 50, duration: 0.4 });
-            gsap.to(document.getElementById('modalOverlay'), { opacity: 0, duration: 0.4, onComplete: () => {
+            gsap.to("#modalWindow", { opacity: 0, y: 50, duration: 0.3 });
+            gsap.to("#modalOverlay", { opacity: 0, duration: 0.3, onComplete: () => {
                 document.getElementById('modalOverlay').style.display = 'none';
             }});
         }
-
-        function selectMaster(element, name) {
+        function selectMaster(element) {
             document.querySelectorAll('.master-card').forEach(card => card.classList.remove('active'));
             element.classList.add('active');
         }
@@ -271,16 +287,20 @@
         const translations = {
             ua: {
                 nav_about: "Про нас", nav_prices: "Ціни", appt_btn: "ЗАПИСАТИСЯ",
-                hero_title: "Ваша Елегантність", hero_sub: "Винятковий догляд за волоссям для сучасної жінки.",
-                about_title: "Про наше святилище", about_text: "FIDJI STUDIO — це місце, де стиль поєднується з майстерністю. Ми створюємо образи, що підкреслюють вашу індивідуальність.",
+                hero_title: "Ваша Елегантність", hero_sub: "Винятковий догляд за волоссям для сучасної жінки",
+                about_title: "Про наше святилище", 
+                about_text: "FIDJI STUDIO — це місце, де стиль поєднується з майстерністю. Ми створюємо образи, що підкреслюють вашу індивідуальність та додають впевненості у кожному русі. Наша філософія базується на використанні преміальних технік та персоналізованому підході до кожної гості.",
                 modal_title: "Онлайн Запис", f_name: "Ваше Ім'я", f_phone: "Номер Телефону", f_date: "Дата", f_time: "Час", f_master: "Майстер", f_submit: "Забронювати",
+                cat_haircut: "Стрижки", cat_color: "Фарбування", p_women: "Жіноча стрижка", p_men: "Чоловіча стрижка", p_styling: "Укладка", p_color_one: "В один тон", p_complex: "Складне фарбування", p_toning: "Тонування",
                 address: "вулиця Марсельська 58, Одеса, Україна"
             },
             ru: {
                 nav_about: "О нас", nav_prices: "Цены", appt_btn: "ЗАПИСАТЬСЯ",
-                hero_title: "Ваша Элегантность", hero_sub: "Исключительный уход за волосами для современной женщины.",
-                about_title: "О нашем пространстве", about_text: "FIDJI STUDIO — это место, где стиль встречается с мастерством. Мы создаем образы, подчеркивающие вашу индивидуальность.",
+                hero_title: "Ваша Элегантность", hero_sub: "Исключительный уход за волосами для современной женщины",
+                about_title: "О нашем пространстве", 
+                about_text: "FIDJI STUDIO — это место, где стиль встречается с мастерством. Мы создаем образы, подчеркивающие вашу индивидуальность и придающие уверенности в каждом движении. Наша философия основана на использовании премиальных техник и персонализированном подходе к каждой гостье.",
                 modal_title: "Онлайн Запись", f_name: "Ваше Имя", f_phone: "Номер Телефона", f_date: "Дата", f_time: "Время", f_master: "Мастер", f_submit: "Забронировать",
+                cat_haircut: "Стрижки", cat_color: "Окрашивание", p_women: "Женская стрижка", p_men: "Мужская стрижка", p_styling: "Укладка", p_color_one: "В один тон", p_complex: "Сложное окрашивание", p_toning: "Тонирование",
                 address: "улица Марсельская 58, Одесса, Украина"
             }
         };
@@ -291,7 +311,7 @@
             document.querySelectorAll('[data-key]').forEach(el => el.innerText = translations[lang][el.getAttribute('data-key')]);
         }
 
-       window.addEventListener('load', () => {
+        window.addEventListener('load', () => {
             const tl = gsap.timeline();
             tl.to(".loader-text", { opacity: 1, duration: 0.4 })
               .to(".loader-text", { opacity: 0, duration: 0.3, delay: 0.2 })
