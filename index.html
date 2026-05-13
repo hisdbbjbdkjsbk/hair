@@ -1,30 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMIÈRE | Luxury Hair Design</title>
+    <title>FIDJI STUDIO | Luxury Hair Design Odessa</title>
     
-    <!-- GSAP for High Animation -->
+    <!-- GSAP Animation Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 
     <style>
-        /* --- CSS STYLES --- */
         :root {
             --gold: #c5a059;
             --black: #0a0a0a;
             --white: #ffffff;
             --grey: #1a1a1a;
+            --overlay-dark: rgba(0, 0, 0, 0.92);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--black);
@@ -33,307 +29,276 @@
             overflow-x: hidden;
         }
 
-        h1, h2, .logo {
-            font-family: 'Playfair Display', serif;
-        }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
 
-        /* 1. Window Preloader */
+        /* 1. Preloader */
         .preloader {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            z-index: 1000; display: flex; justify-content: center; align-items: center;
         }
-
-        .shutter {
-            position: absolute;
-            width: 50%;
-            height: 100%;
-            background: var(--grey);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
+        .shutter { position: absolute; width: 50%; height: 100%; background: var(--grey); }
         .shutter.left { left: 0; border-right: 1px solid rgba(197, 160, 89, 0.3); }
         .shutter.right { right: 0; }
+        .loader-text { position: absolute; z-index: 1001; font-size: 2rem; letter-spacing: 15px; color: var(--gold); text-transform: uppercase; opacity: 0; }
 
-        .loader-text {
-            position: absolute;
-            z-index: 1001;
-            font-size: 2.5rem;
-            letter-spacing: 12px;
-            color: var(--gold);
-            text-transform: uppercase;
-        }
-
-        /* 2. Floating Right Sidebar (Call/Appt) */
+        /* 2. Floating Actions */
         .side-actions {
             position: fixed;
-            right: 25px;
-            top: 50%;
+            right: 25px; top: 50%;
             transform: translateY(-50%);
-            z-index: 99;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            z-index: 99; display: flex; flex-direction: column; gap: 20px;
         }
-
         .action-link {
-            background: var(--gold);
-            color: var(--black);
-            text-decoration: none;
-            padding: 20px 12px;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 0.8rem;
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            transition: all 0.3s ease;
+            background: var(--gold); color: var(--black); text-decoration: none; border: none;
+            padding: 22px 14px; border-radius: 35px; font-weight: bold; font-size: 0.75rem;
+            writing-mode: vertical-rl; text-orientation: mixed; transition: all 0.4s ease;
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display: flex; justify-content: center; align-items: center;
+            letter-spacing: 1px; cursor: pointer;
         }
-
+        .call-btn {
+            writing-mode: horizontal-tb !important; padding: 18px !important; 
+            border-radius: 50% !important; font-size: 1.3rem;
+        }
         .action-link:hover {
-            background: var(--white);
+            background-color: var(--white) !important;
+            color: var(--black) !important;
             transform: scale(1.1);
         }
 
-        .action-link.call-btn {
-            writing-mode: horizontal-tb;
-            padding: 15px;
-            border-radius: 50%;
-        }
-
-        /* 3. Hero Section & Video */
-        .hero {
-            height: 100vh;
-            width: 100%;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .hero-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-            opacity: 0.5;
-        }
-
+        /* 3. Navigation */
         nav {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            padding: 30px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 10;
+            position: absolute; top: 0; width: 100%; padding: 30px 50px;
+            display: flex; justify-content: space-between; align-items: center; z-index: 10;
         }
-
-        .logo { font-size: 1.8rem; color: var(--gold); font-weight: bold; }
-
+        .logo { 
+            font-family: 'Playfair Display', serif; font-size: 1.1rem; 
+            color: var(--gold); font-weight: 700; letter-spacing: 6px; 
+            text-transform: uppercase; position: relative;
+        }
+        .logo::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 40%; height: 1px; background: var(--gold); opacity: 0.5; }
+        
         nav ul { display: flex; list-style: none; gap: 30px; }
-        nav ul a { color: var(--white); text-decoration: none; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
+        nav ul a { color: var(--white); text-decoration: none; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
+        nav ul a:hover { color: var(--gold); }
 
-        .hero-content {
-            text-align: center;
-            z-index: 5;
-        }
+        .lang-box { display: flex; border: 1px solid var(--gold); background: rgba(0,0,0,0.5); padding: 3px; gap: 2px; }
+        .lang-btn { cursor: pointer; padding: 6px 14px; font-size: 0.7rem; color: var(--white); transition: 0.3s; text-transform: uppercase; }
+        .lang-btn.active { background: var(--white); color: var(--black); font-weight: bold; }
 
-        .hero-content h2 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            opacity: 0;
+        /* 4. Modal Appointment Form */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--overlay-dark); z-index: 2000;
+            display: none; justify-content: center; align-items: center;
+            backdrop-filter: blur(8px);
         }
+        .modal-window {
+            background: var(--grey); width: 95%; max-width: 500px; padding: 40px;
+            border: 1px solid var(--gold); position: relative; transform: translateY(50px); opacity: 0;
+        }
+        .close-modal {
+            position: absolute; top: 15px; right: 20px; color: var(--gold);
+            font-size: 2rem; cursor: pointer; line-height: 1;
+        }
+        .modal-window h3 { color: var(--gold); text-align: center; margin-bottom: 25px; font-size: 1.5rem; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* 4. Sections */
-        section {
-            padding: 100px 10%;
-            min-height: 60vh;
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 0.65rem; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; letter-spacing: 1px; }
+        .form-group input {
+            width: 100%; background: #000; border: 1px solid #333; padding: 12px;
+            color: white; font-family: 'Montserrat'; outline: none; transition: 0.3s;
         }
+        .form-group input:focus { border-color: var(--gold); }
 
-        .price-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
+        .masters-list { display: flex; justify-content: space-between; gap: 10px; margin-top: 20px; }
+        .master-card { flex: 1; text-align: center; cursor: pointer; opacity: 0.4; transition: 0.3s; }
+        .master-card img { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 2px solid transparent; margin-bottom: 8px; }
+        .master-card p { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; }
+        .master-card.active { opacity: 1; }
+        .master-card.active img { border-color: var(--gold); }
 
-        .price-item {
-            border-bottom: 1px solid var(--gold);
-            padding-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
+        .submit-btn {
+            width: 100%; padding: 15px; background: var(--gold); color: black;
+            border: none; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;
+            margin-top: 25px; cursor: pointer; transition: 0.3s;
         }
+        .submit-btn:hover { background: white; }
 
-        /* 5. Footer */
-        footer {
-            background: #000;
-            padding: 60px 10%;
-            text-align: center;
-            border-top: 1px solid var(--grey);
-        }
+        /* 5. Hero Section */
+        .hero { height: 100vh; position: relative; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; opacity: 0.4; }
+        .hero-content { text-align: center; z-index: 5; }
+        .hero-content h2 { font-size: 4rem; margin-bottom: 20px; letter-spacing: 5px; text-transform: uppercase; }
 
-        .footer-links a {
-            color: var(--gold);
-            margin: 0 15px;
-            text-decoration: none;
+        /* 6. Sections */
+        section { padding: 100px 15%; }
+        .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-top: 50px; }
+        .price-item { border-bottom: 1px solid rgba(197, 160, 89, 0.3); padding-bottom: 12px; display: flex; justify-content: space-between; font-size: 0.9rem; }
+
+        /* 7. Footer & Socials */
+        footer { background: #000; padding: 80px 10%; text-align: center; border-top: 1px solid var(--grey); }
+        
+        .social-links { display: flex; justify-content: center; gap: 40px; margin-bottom: 40px; }
+        .social-links a { 
+            color: var(--white); text-decoration: none; font-size: 0.8rem; 
+            text-transform: uppercase; letter-spacing: 3px; transition: 0.3s; 
+            position: relative; padding-bottom: 5px;
         }
+        .social-links a::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: 0.3s;
+        }
+        .social-links a:hover { color: var(--gold); }
+        .social-links a:hover::after { width: 100%; }
+
+        .footer-address { font-size: 0.75rem; color: #666; letter-spacing: 2px; text-transform: uppercase; line-height: 1.8; }
+        .footer-phone { display: block; margin-top: 15px; color: var(--gold); text-decoration: none; font-weight: bold; font-size: 1rem; }
+        .copyright { margin-top: 30px; font-size: 0.6rem; opacity: 0.4; letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
-    <!-- PRELOADER "WINDOW" -->
+    <!-- PRELOADER -->
     <div class="preloader">
         <div class="shutter left"></div>
         <div class="shutter right"></div>
-        <div class="loader-text">odeesa salon</div>
+        <div class="loader-text">fidji studio</div>
     </div>
 
-    <!-- FLOATING ACTIONS -->
+    <!-- SIDE ACTIONS -->
     <div class="side-actions">
-        <a href="tel:+123456789" class="action-link call-btn">📞</a>
-        <a href="#appointment" class="action-link">MAKE APPOINTMENT</a>
+        <a href="tel:+4915155414585" class="action-link call-btn">📞</a>
+        <button onclick="openAppointment()" class="action-link" data-key="appt_btn">ЗАПИСАТИСЯ</button>
     </div>
 
-    <!-- MAIN PAGE -->
+    <!-- APPOINTMENT MODAL -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-window" id="modalWindow">
+            <span class="close-modal" onclick="closeAppointment()">&times;</span>
+            <h3 data-key="modal_title">Онлайн Запис</h3>
+            
+            <form id="bookingForm">
+                <div class="form-group"><label data-key="f_name">Ваше Ім'я</label><input type="text" required></div>
+                <div class="form-group"><label data-key="f_phone">Номер Телефону</label><input type="tel" required placeholder="+380"></div>
+                <div style="display: flex; gap: 15px;">
+                    <div class="form-group" style="flex: 1;"><label data-key="f_date">Дата</label><input type="date" required></div>
+                    <div class="form-group" style="flex: 1;"><label data-key="f_time">Час</label><input type="time" required></div>
+                </div>
+
+                <label data-key="f_master" style="font-size: 0.65rem; color: var(--gold); text-transform: uppercase;">Оберіть Майстра</label>
+                <div class="masters-list">
+                    <div class="master-card active" onclick="selectMaster(this, 'Natalia')">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop" alt="Natalia"><p>Natalia</p>
+                    </div>
+                    <div class="master-card" onclick="selectMaster(this, 'Larisa')">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop" alt="Larisa"><p>Larisa</p>
+                    </div>
+                    <div class="master-card" onclick="selectMaster(this, 'Lena')">
+                        <img src="Untitled.png" alt="Lena"><p>Lena</p>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn" data-key="f_submit">Забронювати</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="logo">fidji studio</div>
+        <ul>
+            <li><a href="#about" data-key="nav_about">Про нас</a></li>
+            <li><a href="#prices" data-key="nav_prices">Ціни</a></li>
+        </ul>
+        <div class="lang-box">
+            <div class="lang-btn active" onclick="setLanguage('ua')" id="ua-btn">UA</div>
+            <div class="lang-btn" onclick="setLanguage('ru')" id="ru-btn">RU</div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
     <header class="hero">
         <video autoplay muted loop playsinline class="hero-video">
-            <!-- High quality hair styling video -->
             <source src="3996964-uhd_4096_2160_25fps.mp4" type="video/mp4">
         </video>
-
-        <nav>
-            <div class="logo">odessa salon</div>
-            <ul>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#prices">Prices</a></li>
-                <li><a href="#tea">Our Tea</a></li>
-                <li><a href="#designers">Designers</a></li>
-            </ul>
-        </nav>
-
         <div class="hero-content">
-            <h2 id="hero-title">Elegance Redefined</h2>
-            <p id="hero-sub">The ultimate hair experience for the modern woman.</p>
+            <h2 id="hero-title" data-key="hero_title">Ваша Елегантність</h2>
+            <p id="hero-sub" data-key="hero_sub">Винятковий догляд за волоссям для сучасної жінки.</p>
         </div>
     </header>
 
+    <!-- ABOUT & PRICES (Shortened for brevity) -->
     <section id="about">
-        <h2>About Our Sanctuary</h2>
-        <p style="margin-top:20px; line-height: 1.8; color: #ccc;">We don't just cut hair; we sculpt confidence. Our salon is a haven of luxury where every detail is tailored to your unique beauty.</p>
+        <h2 data-key="about_title">Про наше святилище</h2>
+        <p data-key="about_text" style="margin-top:25px; line-height: 2; color: #bbb;">FIDJI STUDIO — це місце, де стиль поєднується з майстерністю.</p>
     </section>
 
-    <section id="prices" style="background: var(--grey);">
-        <h2>Investment in Beauty</h2>
-        <div class="price-grid">
-            <div class="price-item"><span>Couture Cut & Style</span> <span>$120</span></div>
-            <div class="price-item"><span>Signature Balayage</span> <span>$280</span></div>
-            <div class="price-item"><span>Hydration Therapy</span> <span>$85</span></div>
-            <div class="price-item"><span>Bridal Styling</span> <span>$200</span></div>
-        </div>
-    </section>
-
-    <section id="tea">
-        <h2>Our Tea Ritual</h2>
-        <p>While you wait, enjoy our selection of organic herbal teas served in fine porcelain. A moment of zen before your transformation.</p>
-    </section>
-
-    <section id="designers">
-        <h2>The Master Designers</h2>
-        <div class="price-grid">
-            <div style="text-align:center"><h3>Elena V.</h3><p>Master Colorist</p></div>
-            <div style="text-align:center"><h3>Sarah J.</h3><p>Creative Director</p></div>
-            <div style="text-align:center"><h3>Mila K.</h3><p>Styling Expert</p></div>
-        </div>
-    </section>
-
+    <!-- FOOTER -->
     <footer>
-        <div class="footer-links">
-            <a href="#">Instagram</a>
-            <a href="#">Facebook</a>
-            <a href="#">TikTok</a>
+        <div class="social-links">
+            <a href="https://www.instagram.com/fidji_studio/" target="_blank">Instagram</a>
+            <a href="https://tiktok.com" target="_blank">TikTok</a>
+            <a href="https://www.facebook.com/beautyfidjistudio" target="_blank">Facebook</a>
         </div>
-        <p style="margin-top: 20px; font-size: 0.8rem; color: #666;">+1 (234) 567-890 • 123 Luxury Lane, NY</p>
+
+        <div class="footer-address">
+            <span data-key="address">вулиця Марсельська 58, Одеса, Україна</span>
+            <a href="tel:+4915155414585" class="footer-phone">+49 151 55414585</a>
+            <p class="copyright">© 2026 FIDJI STUDIO. ALL RIGHTS RESERVED.</p>
+        </div>
     </footer>
 
     <script>
-        /* --- GSAP ANIMATION LOGIC --- */
+        function openAppointment() {
+            const overlay = document.getElementById('modalOverlay');
+            overlay.style.display = 'flex';
+            gsap.to(overlay, { opacity: 1, duration: 0.4 });
+            gsap.to(document.getElementById('modalWindow'), { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" });
+        }
+
+        function closeAppointment() {
+            gsap.to(document.getElementById('modalWindow'), { opacity: 0, y: 50, duration: 0.4 });
+            gsap.to(document.getElementById('modalOverlay'), { opacity: 0, duration: 0.4, onComplete: () => {
+                document.getElementById('modalOverlay').style.display = 'none';
+            }});
+        }
+
+        function selectMaster(element, name) {
+            document.querySelectorAll('.master-card').forEach(card => card.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        const translations = {
+            ua: {
+                nav_about: "Про нас", nav_prices: "Ціни", appt_btn: "ЗАПИСАТИСЯ",
+                hero_title: "Ваша Елегантність", hero_sub: "Винятковий догляд за волоссям для сучасної жінки.",
+                about_title: "Про наше святилище", about_text: "FIDJI STUDIO — це місце, де стиль поєднується з майстерністю. Ми створюємо образи, що підкреслюють вашу індивідуальність.",
+                modal_title: "Онлайн Запис", f_name: "Ваше Ім'я", f_phone: "Номер Телефону", f_date: "Дата", f_time: "Час", f_master: "Майстер", f_submit: "Забронювати",
+                address: "вулиця Марсельська 58, Одеса, Україна"
+            },
+            ru: {
+                nav_about: "О нас", nav_prices: "Цены", appt_btn: "ЗАПИСАТЬСЯ",
+                hero_title: "Ваша Элегантность", hero_sub: "Исключительный уход за волосами для современной женщины.",
+                about_title: "О нашем пространстве", about_text: "FIDJI STUDIO — это место, где стиль встречается с мастерством. Мы создаем образы, подчеркивающие вашу индивидуальность.",
+                modal_title: "Онлайн Запись", f_name: "Ваше Имя", f_phone: "Номер Телефона", f_date: "Дата", f_time: "Время", f_master: "Мастер", f_submit: "Забронировать",
+                address: "улица Марсельская 58, Одесса, Украина"
+            }
+        };
+
+        function setLanguage(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`${lang}-btn`).classList.add('active');
+            document.querySelectorAll('[data-key]').forEach(el => el.innerText = translations[lang][el.getAttribute('data-key')]);
+        }
+
         window.addEventListener('load', () => {
             const tl = gsap.timeline();
-
-            // 1. Initial State
-            tl.set(".loader-text", { opacity: 0, y: 20 });
-
-            // 2. Animate Logo In
-            tl.to(".loader-text", {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: "power2.out"
-            });
-
-            // 3. Open the "Window" (Shutters)
-            tl.to(".loader-text", {
-                opacity: 0,
-                duration: 0.8,
-                delay: 0.5
-            })
-            .to(".left", {
-                xPercent: -100,
-                duration: 1.5,
-                ease: "power4.inOut"
-            }, "-=0.2")
-            .to(".right", {
-                xPercent: 100,
-                duration: 1.5,
-                ease: "power4.inOut"
-            }, "<") // Start at the same time as the left shutter
-
-            // 4. Reveal Hero Content
-            .from("#hero-title", {
-                y: 100,
-                opacity: 0,
-                duration: 1.2,
-                ease: "power4.out"
-            }, "-=0.8")
-            .from("#hero-sub", {
-                y: 50,
-                opacity: 0,
-                duration: 1
-            }, "-=0.6")
-            .from(".side-actions", {
-                x: 100,
-                opacity: 0,
-                duration: 0.8
-            }, "-=0.5");
-
-            // Remove preloader from view so user can click items
-            tl.set(".preloader", { display: "none" });
+            tl.to(".loader-text", { opacity: 1, duration: 1 })
+              .to(".loader-text", { opacity: 0, duration: 0.5, delay: 0.5 })
+              .to(".left", { xPercent: -100, duration: 1, ease: "power4.inOut" })
+              .to(".right", { xPercent: 100, duration: 1, ease: "power4.inOut" }, "<")
+              .set(".preloader", { display: "none" });
         });
     </script>
 </body>
 </html>
-
-
-
-
-
-
